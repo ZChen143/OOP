@@ -32,7 +32,8 @@ public class ControlPanel extends Panel implements ActionListener {
         TableModel model = table.getModel();
 
         if(e.getSource().equals(addNewLine)){
-            customer.addCustomer(new String[]{null,null,null,null,null,null,null,null,null});
+            AddingDialog addingDialog = new AddingDialog();
+            //customer.addCustomer(new String[]{null,null,null,null,null,null,null,null,null});
             table.updateUI();
             Rectangle rectangle = table.getCellRect(table.getRowCount()-1,0,true);
             table.scrollRectToVisible(rectangle);
