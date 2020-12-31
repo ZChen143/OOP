@@ -8,14 +8,14 @@ import java.awt.event.ActionListener;
 
 public class ControlPanel extends Panel implements ActionListener {
 
-    private JButton add = new JButton("Add new line");
+    private JButton addNewLine = new JButton("Add new line");
     private JButton delete = new JButton("Delete");
     private JButton search = new JButton("Search");
     private JButton update = new JButton("Update");
 
     public ControlPanel() {
-        add(add);
-        add.addActionListener(this);
+        add(addNewLine);
+        addNewLine.addActionListener(this);
         add(delete);
         delete.addActionListener(this);
         add(search);
@@ -31,7 +31,7 @@ public class ControlPanel extends Panel implements ActionListener {
         Table table = ClubMembership.getTable();
         TableModel model = table.getModel();
 
-        if(e.getSource().equals(add)){
+        if(e.getSource().equals(addNewLine)){
             customer.addCustomer(new String[]{null,null,null,null,null,null,null,null,null});
             table.updateUI();
             Rectangle rectangle = table.getCellRect(table.getRowCount()-1,0,true);
