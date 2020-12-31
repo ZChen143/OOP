@@ -37,19 +37,22 @@ public class ClubMembership extends JFrame {
 
     @Override
     public void dispose() {
+
         try {
             TableModel model = ClubMembership.getTable().getModel();
             FileWriter csv = new FileWriter(new File(FILEPATH));
 
             //System.out.println(model.getValueAt(0,1));
             for (int i = 0; i < model.getRowCount(); i++) {
-                for (int j = 0; j < model.getColumnCount(); j++) {
-                    if (model.getValueAt(i, j) == null)
-                        csv.write(",");
-                    else
-                        csv.write(model.getValueAt(i, j).toString() + ",");
+                if(!(model.getValueAt(i,1) == null || model.getValueAt(i,2) == null)) {
+                    for (int j = 0; j < model.getColumnCount(); j++) {
+                        if (model.getValueAt(i, j) == null)
+                            csv.write(",");
+                        else
+                            csv.write(model.getValueAt(i, j).toString() + ",");
+                    }
+                    csv.write("\n");
                 }
-                csv.write("\n");
             }
             csv.close();
 
