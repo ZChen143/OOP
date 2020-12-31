@@ -5,10 +5,10 @@ import java.util.Vector;
 
 public class Customer {
 
-    private Vector<Vector<String>> customer;
+    private final Vector<Vector<String>> customer;
 
     public Customer() {
-        customer = new Vector<Vector<String>>();
+        customer = new Vector<>();
     }
 
     public Vector<Vector<String>> getCustomer() {
@@ -23,7 +23,7 @@ public class Customer {
     public void readCsv(String filePath) {
         String csvSplitBy = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
         String line = "";
-        String lineSplit[] = null;
+        String[] lineSplit;
         Vector<String> v = new Vector<>();
         Vector<String> tmp = new Vector<>();
 
@@ -35,19 +35,30 @@ public class Customer {
         }
         while (true) {
             try {
-                if (!((line = br.readLine()) != null)) break;
+                assert br != null;
+                if ((line = br.readLine()) == null) break;
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             lineSplit = line.split(csvSplitBy);
 
-            for (int i = 0; i < lineSplit.length; i++){
-                tmp.add(lineSplit[i]);
-                v = (Vector<String>) tmp.clone();
+            if(!isEqual(lineSplit)) {
+                for (String s : lineSplit) {
+                    tmp.add(s);
+                    v = (Vector<String>) tmp.clone();
+                }
+                customer.add(v);
+                tmp.clear();
             }
-            customer.add(v);
-            tmp.clear();
         }
+    }
+
+    public boolean isEqual(String[] lineSplit) {
+        if (lineSplit.length >= 4 && customer.lastElement().size() >= 4){
+            Vector<String> v = customer.lastElement();
+            return (lineSplit[1].equals(v.get(1)) && lineSplit[2].equals(v.get(2)) && lineSplit[3].equals(v.get(3)));
+        }
+        return false;
     }
 }
