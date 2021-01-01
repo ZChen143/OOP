@@ -5,7 +5,7 @@ import java.util.Vector;
 
 public class Table extends JTable {
 
-    private static final Vector<String> columnNames = new Vector<>(Arrays.asList(new String[]{"Number", "First Name", "Last Name", "Date of Birth", "Gender", "Address", "Telephone","Member date","Due date"}));
+    private static final Vector<String> columnNames = new Vector<>(Arrays.asList("Number", "First Name", "Last Name", "Date of Birth", "Gender", "Address", "Telephone","Member date","Due date"));
     DefaultTableModel tableModel;
 
     public Table(Vector<Vector<String>> data){

@@ -1,7 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -32,7 +31,7 @@ public class ClubMembership extends JFrame {
         add(new JScrollPane(table), BorderLayout.NORTH);
         add(new ControlPanel(), BorderLayout.SOUTH);
 
-        setSize(1024, 768);
+        setBounds(300,100,1024, 768);
     }
 
     @Override
@@ -40,7 +39,7 @@ public class ClubMembership extends JFrame {
 
         try {
             TableModel model = ClubMembership.getTable().getModel();
-            FileWriter csv = new FileWriter(new File(FILEPATH));
+            FileWriter csv = new FileWriter(FILEPATH);
 
             //System.out.println(model.getValueAt(0,1));
             for (int i = 0; i < model.getRowCount(); i++) {
