@@ -9,7 +9,7 @@ public class ClubMembership extends JFrame {
     private final static String FILEPATH = "src/customerlist.csv";
 
     private final static int XOFFSET = 300;
-    private final static int YOFFSET = 200;
+    private final static int YOFFSET = 100;
     private final static int WIDTH = 1024;
     private final static int HEIGHT = 768;
 

@@ -10,6 +10,7 @@ public class MyTextField extends JTextField implements FocusListener {
 
     public MyTextField(String hint) {
         super(hint);
+        setSize(100,10);
         setForeground(Color.gray);
         this.hint = hint;
         this.showingHint = true;

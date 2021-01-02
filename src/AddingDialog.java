@@ -1,7 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class AddingDialog extends JDialog {
+public class AddingDialog extends JDialog implements ActionListener{
 
     private final static int XOFFSET = ClubMembership.getXOffset() + 300;
     private final static int YOFFSET = ClubMembership.getYOffset() + 200;
@@ -21,11 +27,25 @@ public class AddingDialog extends JDialog {
     private MyTextField textFirstname = new MyTextField("First name");
     private MyTextField textLastname = new MyTextField("Last name");
     private MyTextField textBirth = new MyTextField("Birthday");
-    private JRadioButton radioGender = new JRadioButton();
+    private JComboBox GenderComboBox = new JComboBox();
     private MyTextField textAddress = new MyTextField("Address");
     private MyTextField textTelephone = new MyTextField("Telephone");
 
+    private JButton save = new JButton("Save");
+    private JButton cancel = new JButton("Cancel");
+
+    private String dateFormat = "(((0[1-9]|[12][0-9]|3[01])/((0[13578]|1[02]))|((0[1-9]|[12][0-9]|30)/(0[469]|11))|(0[1-9]|[1][0-9]|2[0-8])/(02))/([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3}))|(29/02/(([0-9]{2})))";
+
     public AddingDialog() {
+
+        GenderComboBox.addItem("Male");
+        GenderComboBox.addItem("Female");
+        GenderComboBox.addItem("Other");
+        GenderComboBox.addItem("prefer not to disclose");
+
+        save.addActionListener(this);
+        cancel.addActionListener(this);
+
         setModal(true);
         setTitle("Information");
         setBounds(XOFFSET,YOFFSET,WIDTH,HEIGHT);
@@ -36,28 +56,56 @@ public class AddingDialog extends JDialog {
         GroupLayout layout = new GroupLayout(panel);
         panel.setLayout(layout);
 
-        layout.setHorizontalGroup(layout.createSequentialGroup().addGap(10)
+        layout.setHorizontalGroup(layout.createSequentialGroup().addGap(20)
                 .addGroup(layout.createParallelGroup().addComponent(NUMBER)
-                                                    .addComponent(LASTNAME)).addGap(10)
+                                                    .addComponent(LASTNAME)
+                                                    .addComponent(GENDER)
+                                                    .addComponent(TELEPHONE))
                         .addGroup(layout.createParallelGroup().addComponent(textNumber)
-                                                            .addComponent(textLastname)).addGap(10)
+                                                            .addComponent(textLastname)
+                                                            .addComponent(GenderComboBox)
+                                                            .addComponent(textTelephone)
+                                                            .addComponent(save))
                                 .addGroup(layout.createParallelGroup().addComponent(FIRSTNAME)
-                                                                    .addComponent(DATEOFBIRTH)).addGap(10)
+                                                                    .addComponent(DATEOFBIRTH)
+                                                                    .addComponent(ADDRESS)
+                                                                    .addComponent(cancel))
                                         .addGroup(layout.createParallelGroup().addComponent(textFirstname)
-                                                                            .addComponent(textBirth)).addGap(10)
+                                                                            .addComponent(textBirth)
+                                                                            .addComponent(textAddress)).addGap(20)
         );
 
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGap(20)
                 .addGroup(layout.createParallelGroup().addComponent(NUMBER).addComponent(textNumber).addComponent(FIRSTNAME).addComponent(textFirstname))
-                .addGap(10)
+                .addGap(20)
                 .addGroup(layout.createParallelGroup().addComponent(LASTNAME).addComponent(textLastname).addComponent(DATEOFBIRTH).addComponent(textBirth))
+                .addGap(20)
+                .addGroup(layout.createParallelGroup().addComponent(GENDER).addComponent(GenderComboBox).addComponent(ADDRESS).addComponent(textAddress))
+                .addGap(20)
+                .addGroup(layout.createParallelGroup().addComponent(TELEPHONE).addComponent(textTelephone))
+                .addGap(20)
+                .addGroup(layout.createParallelGroup().addComponent(save).addComponent(cancel))
                 .addGap(300)
         );
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource().equals(save)){
+            if(textBirth.getText().matches(dateFormat)){
+                System.out.println("true");
+            }
+            else
+                System.out.println("false");
+        }
+        else if(e.getSource().equals(cancel)){
+            dispose();
+        }
     }
 }
