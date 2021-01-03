@@ -17,7 +17,7 @@ public class AddingDialog extends JDialog implements ActionListener{
     private final static JLabel NUMBER = new JLabel("Number");
     private final static JLabel FIRSTNAME = new JLabel("First name");
     private final static JLabel LASTNAME = new JLabel("Last name");
-    private final static JLabel DATEOFBIRTH = new JLabel("Date of birth");
+    private final static JLabel DATEOFBIRTH = new JLabel("dd/MM/yy");
     private final static JLabel GENDER = new JLabel("Gender");
     private final static JLabel ADDRESS = new JLabel("Address");
     private final static JLabel TELEPHONE = new JLabel("Telephone");
@@ -38,6 +38,7 @@ public class AddingDialog extends JDialog implements ActionListener{
 
     public AddingDialog() {
 
+        //GenderComboBox.setMaximumSize(textNumber.getSize());
         GenderComboBox.addItem("Male");
         GenderComboBox.addItem("Female");
         GenderComboBox.addItem("Other");
@@ -50,27 +51,23 @@ public class AddingDialog extends JDialog implements ActionListener{
         setTitle("Information");
         setBounds(XOFFSET,YOFFSET,WIDTH,HEIGHT);
 
-        JPanel panel = new JPanel();
-        add(panel);
-
-        GroupLayout layout = new GroupLayout(panel);
-        panel.setLayout(layout);
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
 
         layout.setHorizontalGroup(layout.createSequentialGroup().addGap(20)
-                .addGroup(layout.createParallelGroup().addComponent(NUMBER)
-                                                    .addComponent(LASTNAME)
-                                                    .addComponent(GENDER)
-                                                    .addComponent(TELEPHONE))
-                        .addGroup(layout.createParallelGroup().addComponent(textNumber)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(FIRSTNAME)
+                                                    .addComponent(DATEOFBIRTH)
+                                                    .addComponent(ADDRESS)).addGap(20)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(textNumber)
                                                             .addComponent(textLastname)
                                                             .addComponent(GenderComboBox)
                                                             .addComponent(textTelephone)
-                                                            .addComponent(save))
-                                .addGroup(layout.createParallelGroup().addComponent(FIRSTNAME)
+                                                            .addComponent(save)).addGap(20)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(FIRSTNAME)
                                                                     .addComponent(DATEOFBIRTH)
                                                                     .addComponent(ADDRESS)
-                                                                    .addComponent(cancel))
-                                        .addGroup(layout.createParallelGroup().addComponent(textFirstname)
+                                                                    .addComponent(cancel)).addGap(20)
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(textFirstname)
                                                                             .addComponent(textBirth)
                                                                             .addComponent(textAddress)).addGap(20)
         );
@@ -78,15 +75,15 @@ public class AddingDialog extends JDialog implements ActionListener{
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGap(20)
-                .addGroup(layout.createParallelGroup().addComponent(NUMBER).addComponent(textNumber).addComponent(FIRSTNAME).addComponent(textFirstname))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(NUMBER).addComponent(textNumber).addComponent(FIRSTNAME).addComponent(textFirstname))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup().addComponent(LASTNAME).addComponent(textLastname).addComponent(DATEOFBIRTH).addComponent(textBirth))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(LASTNAME).addComponent(textLastname).addComponent(DATEOFBIRTH).addComponent(textBirth))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup().addComponent(GENDER).addComponent(GenderComboBox).addComponent(ADDRESS).addComponent(textAddress))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(GENDER).addComponent(GenderComboBox).addComponent(ADDRESS).addComponent(textAddress))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup().addComponent(TELEPHONE).addComponent(textTelephone))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(TELEPHONE).addComponent(textTelephone))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup().addComponent(save).addComponent(cancel))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(save).addComponent(cancel))
                 .addGap(300)
         );
 
@@ -98,14 +95,19 @@ public class AddingDialog extends JDialog implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(save)){
-            if(textBirth.getText().matches(dateFormat)){
-                System.out.println("true");
+            if(isCorrect()){
+
             }
-            else
-                System.out.println("false");
+            else {
+
+            }
         }
         else if(e.getSource().equals(cancel)){
             dispose();
         }
+    }
+
+    public boolean isCorrect() {
+         return false;
     }
 }

@@ -20,6 +20,13 @@ public class Customer {
         getCustomer().add(v);
     }
 
+    public void createNumNo() {
+        for(int i = 0; i < customer.size(); i++){
+            String s = customer.get(i).get(1) + customer.get(i).get(2) + customer.get(i).get(3);
+            System.out.println(s);
+        }
+    }
+
     public void readCsv(String filePath) {
         String csvSplitBy = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
         String line = "";
@@ -42,6 +49,11 @@ public class Customer {
             }
 
             lineSplit = line.split(csvSplitBy);
+
+            //Create Membership Numbers by hashcode if it's null.
+            if(lineSplit[0] == null){
+
+            }
 
             if(!isEqual(lineSplit)) {
                 for (String s : lineSplit) {

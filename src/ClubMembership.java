@@ -31,6 +31,7 @@ public class ClubMembership extends JFrame {
 
         customer = new Customer();
         customer.readCsv(FILEPATH);
+
         table = new Table(customer.getCustomer());
 
         add(new JScrollPane(table), BorderLayout.NORTH);
