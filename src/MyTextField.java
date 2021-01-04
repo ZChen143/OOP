@@ -5,7 +5,7 @@ import java.awt.event.FocusListener;
 
 public class MyTextField extends JTextField implements FocusListener {
 
-    private String hint;
+    private final String hint;
     private boolean showingHint;
 
     public MyTextField(String hint) {

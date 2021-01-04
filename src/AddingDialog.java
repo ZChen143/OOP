@@ -1,11 +1,7 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class AddingDialog extends JDialog implements ActionListener{
@@ -23,18 +19,15 @@ public class AddingDialog extends JDialog implements ActionListener{
     private final static JLabel TELEPHONE = new JLabel("Telephone");
 
 
-    private MyTextField textFirstname = new MyTextField("First name");
-    private MyTextField textLastname = new MyTextField("Last name");
-    private MyTextField textBirth = new MyTextField("31/01/70");
-    private JComboBox GenderComboBox = new JComboBox();
-    private MyTextField textAddress = new MyTextField("Address");
-    private MyTextField textTelephone = new MyTextField("Start with +44 or 0");
+    private final MyTextField textFirstname = new MyTextField("First name");
+    private final MyTextField textLastname = new MyTextField("Last name");
+    private final MyTextField textBirth = new MyTextField("31/01/70");
+    private final JComboBox GenderComboBox = new JComboBox();
+    private final MyTextField textAddress = new MyTextField("Address");
+    private final MyTextField textTelephone = new MyTextField("Start with +44 or 0");
 
-    private JButton save = new JButton("Save");
-    private JButton cancel = new JButton("Cancel");
-
-    private String telephoneFormat = "(\\+44|0)7[0-9]{9}";
-    private String dateFormat = "(((0[1-9]|[12][0-9]|3[01])\\/((0[13578]|1[02]))|((0[1-9]|[12][0-9]|30)\\/(0[469]|11))|(0[1-9]|[1][0-9]|2[0-8])\\/(02))\\/[0-9]{2})|(29\\/02\\/([02468][048]|[13579][26]))";
+    private final JButton save = new JButton("Save");
+    private final JButton cancel = new JButton("Cancel");
 
     public AddingDialog() {
 
@@ -98,7 +91,7 @@ public class AddingDialog extends JDialog implements ActionListener{
                 String[] information = new String[]{
                         null,
                         textFirstname.getText(), textLastname.getText(), textBirth.getText(),
-                        GenderComboBox.getSelectedItem().toString(), textAddress.getText(), textTelephone.getText(),
+                        Objects.requireNonNull(GenderComboBox.getSelectedItem()).toString(), textAddress.getText(), textTelephone.getText(),
                         null,null
                 };
                 ClubMembership.getCustomer().addCustomer(information);
@@ -113,11 +106,15 @@ public class AddingDialog extends JDialog implements ActionListener{
     }
 
     public boolean isCorrect() {
-        return textFirstname.getText() != ""
-                && textLastname.getText() != ""
-                && GenderComboBox.getSelectedItem().toString() != ""
+
+        String telephoneFormat = "(\\+44|0)7[0-9]{9}";
+        String dateFormat = "(((0[1-9]|[12][0-9]|3[01])\\/((0[13578]|1[02]))|((0[1-9]|[12][0-9]|30)\\/(0[469]|11))|(0[1-9]|[1][0-9]|2[0-8])\\/(02))\\/[0-9]{2})|(29\\/02\\/([02468][048]|[13579][26]))";
+
+        return !textFirstname.getText().equals("")
+                && !textLastname.getText().equals("")
+                && !Objects.requireNonNull(GenderComboBox.getSelectedItem()).toString().equals("")
                 && Pattern.matches(dateFormat,textBirth.getText())
-                && textAddress.getText() != ""
+                && !textAddress.getText().equals("")
                 && Pattern.matches(telephoneFormat,textTelephone.getText());
     }
 }

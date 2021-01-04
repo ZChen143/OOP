@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
 
 public class ControlPanel extends Panel implements ActionListener {
 
-    private JButton addNewLine = new JButton("Add new line");
-    private JButton delete = new JButton("Delete");
-    private JButton search = new JButton("Search");
-    private JButton update = new JButton("Update");
+    private final JButton addNewLine = new JButton("Add new line");
+    private final JButton delete = new JButton("Delete");
+    private final JButton search = new JButton("Search");
+    private final JButton update = new JButton("Update");
 
     public ControlPanel() {
         add(addNewLine);
@@ -27,7 +27,6 @@ public class ControlPanel extends Panel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        Customer customer = ClubMembership.getCustomer();
         Table table = ClubMembership.getTable();
         TableModel model = table.getModel();
 

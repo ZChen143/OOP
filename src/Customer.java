@@ -21,8 +21,8 @@ public class Customer {
     }
 
     public void createNumNo() {
-        for(int i = 0; i < customer.size(); i++){
-            String s = customer.get(i).get(1) + customer.get(i).get(2) + customer.get(i).get(3);
+        for (Vector<String> strings : customer) {
+            String s = strings.get(1) + strings.get(2) + strings.get(3);
             System.out.println(s);
         }
     }

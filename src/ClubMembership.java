@@ -68,7 +68,7 @@ public class ClubMembership extends JFrame {
     }
 
     public static void main(String[] args) {
-        ClubMembership c = new ClubMembership();
+        ClubMembership clubMembership = new ClubMembership();
     }
 
     public static int getXOffset() {
