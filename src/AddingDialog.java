@@ -6,39 +6,40 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class AddingDialog extends JDialog implements ActionListener{
 
-    private final static int XOFFSET = ClubMembership.getXOffset() + 300;
-    private final static int YOFFSET = ClubMembership.getYOffset() + 200;
-    private final static int WIDTH  = 500;
-    private final static int HEIGHT = 300;
+    private final static int XOFFSET = ClubMembership.getXOffset() + 200;
+    private final static int YOFFSET = ClubMembership.getYOffset() + 100;
+    private final static int WIDTH  = 600;
+    private final static int HEIGHT = 220;
 
-    private final static JLabel NUMBER = new JLabel("Number");
     private final static JLabel FIRSTNAME = new JLabel("First name");
     private final static JLabel LASTNAME = new JLabel("Last name");
-    private final static JLabel DATEOFBIRTH = new JLabel("dd/MM/yy");
+    private final static JLabel DATEOFBIRTH = new JLabel("Birthday");
     private final static JLabel GENDER = new JLabel("Gender");
     private final static JLabel ADDRESS = new JLabel("Address");
     private final static JLabel TELEPHONE = new JLabel("Telephone");
 
 
-    private MyTextField textNumber = new MyTextField("Number");
     private MyTextField textFirstname = new MyTextField("First name");
     private MyTextField textLastname = new MyTextField("Last name");
-    private MyTextField textBirth = new MyTextField("Birthday");
+    private MyTextField textBirth = new MyTextField("31/01/70");
     private JComboBox GenderComboBox = new JComboBox();
     private MyTextField textAddress = new MyTextField("Address");
-    private MyTextField textTelephone = new MyTextField("Telephone");
+    private MyTextField textTelephone = new MyTextField("Start with +44 or 0");
 
     private JButton save = new JButton("Save");
     private JButton cancel = new JButton("Cancel");
 
-    private String dateFormat = "(((0[1-9]|[12][0-9]|3[01])/((0[13578]|1[02]))|((0[1-9]|[12][0-9]|30)/(0[469]|11))|(0[1-9]|[1][0-9]|2[0-8])/(02))/([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3}))|(29/02/(([0-9]{2})))";
+    private String telephoneFormat = "(\\+44|0)7[0-9]{9}";
+    private String dateFormat = "(((0[1-9]|[12][0-9]|3[01])\\/((0[13578]|1[02]))|((0[1-9]|[12][0-9]|30)\\/(0[469]|11))|(0[1-9]|[1][0-9]|2[0-8])\\/(02))\\/[0-9]{2})|(29\\/02\\/([02468][048]|[13579][26]))";
 
     public AddingDialog() {
 
         //GenderComboBox.setMaximumSize(textNumber.getSize());
+        GenderComboBox.addItem("");
         GenderComboBox.addItem("Male");
         GenderComboBox.addItem("Female");
         GenderComboBox.addItem("Other");
@@ -55,37 +56,35 @@ public class AddingDialog extends JDialog implements ActionListener{
         getContentPane().setLayout(layout);
 
         layout.setHorizontalGroup(layout.createSequentialGroup().addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(FIRSTNAME)
+                .addGroup(layout.createParallelGroup().addComponent(FIRSTNAME)
                                                     .addComponent(DATEOFBIRTH)
-                                                    .addComponent(ADDRESS)).addGap(20)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(textNumber)
-                                                            .addComponent(textLastname)
-                                                            .addComponent(GenderComboBox)
-                                                            .addComponent(textTelephone)
+                                                    .addComponent(ADDRESS))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING).addComponent(textFirstname)
+                                                            .addComponent(textBirth)
+                                                            .addComponent(textAddress)
                                                             .addComponent(save)).addGap(20)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(FIRSTNAME)
-                                                                    .addComponent(DATEOFBIRTH)
-                                                                    .addComponent(ADDRESS)
-                                                                    .addComponent(cancel)).addGap(20)
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(textFirstname)
-                                                                            .addComponent(textBirth)
-                                                                            .addComponent(textAddress)).addGap(20)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(LASTNAME)
+                                                                    .addComponent(GENDER)
+                                                                    .addComponent(TELEPHONE)
+                                                                    .addComponent(cancel))
+                                        .addGroup(layout.createParallelGroup().addComponent(textLastname)
+                                                                            .addComponent(GenderComboBox)
+                                                                            .addComponent(textTelephone)).addGap(20)
         );
 
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(NUMBER).addComponent(textNumber).addComponent(FIRSTNAME).addComponent(textFirstname))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(FIRSTNAME).addComponent(textFirstname).addComponent(LASTNAME).addComponent(textLastname))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(LASTNAME).addComponent(textLastname).addComponent(DATEOFBIRTH).addComponent(textBirth))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(DATEOFBIRTH).addComponent(textBirth).addComponent(GENDER).addComponent(GenderComboBox))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(GENDER).addComponent(GenderComboBox).addComponent(ADDRESS).addComponent(textAddress))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(ADDRESS).addComponent(textAddress).addComponent(TELEPHONE).addComponent(textTelephone))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(TELEPHONE).addComponent(textTelephone))
-                .addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(save).addComponent(cancel))
-                .addGap(300)
+                .addGroup(layout.createParallelGroup().addComponent(save).addComponent(cancel))
         );
+
+        layout.linkSize(textFirstname,textLastname,GenderComboBox,textTelephone,textAddress,textBirth);
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
@@ -96,10 +95,16 @@ public class AddingDialog extends JDialog implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(save)){
             if(isCorrect()){
-
+                String[] information = new String[]{
+                        null,
+                        textFirstname.getText(), textLastname.getText(), textBirth.getText(),
+                        GenderComboBox.getSelectedItem().toString(), textAddress.getText(), textTelephone.getText(),
+                        null,null
+                };
+                ClubMembership.getCustomer().addCustomer(information);
             }
             else {
-
+                System.err.println("error");
             }
         }
         else if(e.getSource().equals(cancel)){
@@ -108,6 +113,11 @@ public class AddingDialog extends JDialog implements ActionListener{
     }
 
     public boolean isCorrect() {
-         return false;
+        return textFirstname.getText() != ""
+                && textLastname.getText() != ""
+                && GenderComboBox.getSelectedItem().toString() != ""
+                && Pattern.matches(dateFormat,textBirth.getText())
+                && textAddress.getText() != ""
+                && Pattern.matches(telephoneFormat,textTelephone.getText());
     }
 }

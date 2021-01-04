@@ -11,7 +11,7 @@ public class ClubMembership extends JFrame {
     private final static int XOFFSET = 300;
     private final static int YOFFSET = 100;
     private final static int WIDTH = 1024;
-    private final static int HEIGHT = 768;
+    private final static int HEIGHT = 600;
 
     private static Customer customer;
     private static Table table;
