@@ -95,6 +95,7 @@ public class AddingDialog extends JDialog implements ActionListener{
                         null,null
                 };
                 ClubMembership.getCustomer().addCustomer(information);
+                dispose();
             }
             else {
                 System.err.println("error");
