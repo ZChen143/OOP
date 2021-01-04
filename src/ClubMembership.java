@@ -47,7 +47,6 @@ public class ClubMembership extends JFrame {
             TableModel model = ClubMembership.getTable().getModel();
             FileWriter csv = new FileWriter(FILEPATH);
 
-            //System.out.println(model.getValueAt(0,1));
             for (int i = 0; i < model.getRowCount(); i++) {
                 if(!(model.getValueAt(i,1) == null || model.getValueAt(i,2) == null)) {
                     for (int j = 0; j < model.getColumnCount(); j++) {

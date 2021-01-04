@@ -5,6 +5,11 @@ import java.util.Vector;
 
 public class Customer {
 
+    private final static int MEMBERSHIPNUMBER = 0;
+    private final static int FIRSTNAME = 1;
+    private final static int LASTNAME = 2;
+    private final static int BIRTHDAY = 3;
+
     private final Vector<Vector<String>> customer;
 
     public Customer() {
@@ -20,11 +25,13 @@ public class Customer {
         getCustomer().add(v);
     }
 
-    public void createNumNo() {
-        for (Vector<String> strings : customer) {
-            String s = strings.get(1) + strings.get(2) + strings.get(3);
-            System.out.println(s);
-        }
+    public void createNumNo(String[] customer) {
+        String keyInformation;
+        if(customer.length == BIRTHDAY)
+            keyInformation = customer[FIRSTNAME] + customer[LASTNAME];
+        else
+            keyInformation = customer[FIRSTNAME] + customer[LASTNAME] + customer[BIRTHDAY];
+        customer[MEMBERSHIPNUMBER] = Integer.toString(keyInformation.hashCode() & Integer.MAX_VALUE);
     }
 
     public void readCsv(String filePath) {
@@ -51,8 +58,8 @@ public class Customer {
             lineSplit = line.split(csvSplitBy);
 
             //Create Membership Numbers by hashcode if it's null.
-            if(lineSplit[0] == null){
-
+            if(lineSplit[MEMBERSHIPNUMBER].equals("") || lineSplit[MEMBERSHIPNUMBER].equals("\uFEFF")){ // 65279 ??!!
+                createNumNo(lineSplit);
             }
 
             if(!isEqual(lineSplit)) {
