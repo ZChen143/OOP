@@ -3,18 +3,18 @@ import java.awt.event.ActionListener;
 
 public abstract class MyDialog extends JDialog implements ActionListener {
 
-    private final static int XOFFSET = ClubMembership.getXOffset() + 200;
-    private final static int YOFFSET = ClubMembership.getYOffset() + 100;
+    private final static int X_OFFSET = ClubMembership.getXOffset() + 200;
+    private final static int Y_OFFSET = ClubMembership.getYOffset() + 100;
     private final static int WIDTH  = 600;
     private final static int HEIGHT = 280;
 
     private final static JLabel FIRSTNAME = new JLabel("First name   ");
     private final static JLabel LASTNAME = new JLabel("Last name");
-    private final static JLabel DATEOFBIRTH = new JLabel("Birthday");
+    private final static JLabel DATE_OF_BIRTH = new JLabel("Birthday");
     private final static JLabel GENDER = new JLabel("Gender");
     private final static JLabel ADDRESS = new JLabel("Address");
     private final static JLabel TELEPHONE = new JLabel("Telephone");
-    private final static JLabel STARTDATE = new JLabel("Start date");
+    private final static JLabel START_DATE = new JLabel("Start date");
 
 
     private final MyTextField textFirstname = new MyTextField("First name");
@@ -44,7 +44,7 @@ public abstract class MyDialog extends JDialog implements ActionListener {
 
         setModal(true);
         setTitle("Information");
-        setBounds(XOFFSET,YOFFSET,WIDTH,HEIGHT);
+        setBounds(X_OFFSET,Y_OFFSET,WIDTH,HEIGHT);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,9 +52,9 @@ public abstract class MyDialog extends JDialog implements ActionListener {
         layout.setHorizontalGroup(layout.createSequentialGroup().addGap(20)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(FIRSTNAME)
-                        .addComponent(DATEOFBIRTH)
+                        .addComponent(DATE_OF_BIRTH)
                         .addComponent(ADDRESS)
-                        .addComponent(STARTDATE))
+                        .addComponent(START_DATE))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addComponent(textFirstname)
                         .addComponent(textBirthday)
@@ -77,11 +77,11 @@ public abstract class MyDialog extends JDialog implements ActionListener {
                 .addGap(20)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(FIRSTNAME).addComponent(textFirstname).addComponent(LASTNAME).addComponent(textLastname))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(DATEOFBIRTH).addComponent(textBirthday).addComponent(GENDER).addComponent(GenderComboBox))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(DATE_OF_BIRTH).addComponent(textBirthday).addComponent(GENDER).addComponent(GenderComboBox))
                 .addGap(20)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(ADDRESS).addComponent(textAddress).addComponent(TELEPHONE).addComponent(textTelephone))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(STARTDATE).addComponent(textStartDate))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(START_DATE).addComponent(textStartDate))
                 .addGap(20)
                 .addGroup(layout.createParallelGroup().addComponent(button1).addComponent(botton2))
         );

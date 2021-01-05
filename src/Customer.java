@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,24 +30,24 @@ public class Customer {
         getCustomer().add(v);
     }
 
-    public void createNumNo(String[] customer) {
+    public void createNumNo(String[] information) {
         String keyInformation;
-        if(hasBirthday(customer))
-            keyInformation = customer[FIRSTNAME] + customer[LASTNAME] + customer[BIRTHDAY];
+        if(information[BIRTHDAY] != null )
+            keyInformation = information[FIRSTNAME] + information[LASTNAME] + information[BIRTHDAY];
         else
-            keyInformation = customer[FIRSTNAME] + customer[LASTNAME];
-        customer[MEMBERSHIPNUMBER] = Integer.toString(keyInformation.hashCode() & Integer.MAX_VALUE);
+            keyInformation = information[FIRSTNAME] + information[LASTNAME];
+        information[MEMBERSHIPNUMBER] = Integer.toString(keyInformation.hashCode() & Integer.MAX_VALUE);
     }
 
-    public void calculateAge(String[] customer) {
+    public void calculateAge(String[] information) {
         String pattern = "dd/MM/yy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        if(hasBirthday(customer) && !customer[BIRTHDAY].equals("")) {
+        if(information[BIRTHDAY] != null && information[BIRTHDAY].equals("")) {
             try {
-                Date date = simpleDateFormat.parse(customer[BIRTHDAY]);
+                Date date = simpleDateFormat.parse(information[BIRTHDAY]);
+                System.out.println(information[FIRSTNAME]);
                 System.out.println(date);
             } catch (ParseException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -57,6 +58,7 @@ public class Customer {
         String[] lineSplit;
         Vector<String> v = new Vector<>();
         Vector<String> tmp = new Vector<>();
+        int n = 0;
 
         BufferedReader br = null;
         try {
@@ -72,16 +74,21 @@ public class Customer {
                 e.printStackTrace();
             }
 
+            String[] information = new String[MyTable.HEADER_LENGTH];
             lineSplit = line.split(csvSplitBy);
+            for(int i = 0; i < lineSplit.length; i++)
+                information[i] = lineSplit[i];
 
             //Create Membership Numbers by hashcode if it's null.
-            if(lineSplit[MEMBERSHIPNUMBER].equals("") || lineSplit[MEMBERSHIPNUMBER].equals("\uFEFF"))// 65279 ??!!
-                createNumNo(lineSplit);
+            if(information[MEMBERSHIPNUMBER].equals("") || information[MEMBERSHIPNUMBER].equals("\uFEFF"))// 65279 ??!!
+                createNumNo(information);
 
-            calculateAge(lineSplit);
+            n += 1;
+            System.out.println(n);
+            calculateAge(information);
 
-            if(!isEqual(lineSplit)) {
-                for (String s : lineSplit) {
+            if(!isEqual(information)) {
+                for (String s : information) {
                     tmp.add(s);
                     v = (Vector<String>) tmp.clone();
                 }
@@ -91,15 +98,12 @@ public class Customer {
         }
     }
 
-    public boolean isEqual(String[] lineSplit) {
-        if (lineSplit.length >= 4 && customer.lastElement().size() >= 4){
+    public boolean isEqual(String[] information) {
+        if(customer.size() != 0) {
             Vector<String> v = customer.lastElement();
-            return (lineSplit[1].equals(v.get(1)) && lineSplit[2].equals(v.get(2)) && lineSplit[3].equals(v.get(3)));
+            if (information[BIRTHDAY] != null && customer.lastElement().get(BIRTHDAY) !=null)
+                return (information[FIRSTNAME].equals(v.get(FIRSTNAME)) && information[LASTNAME].equals(v.get(LASTNAME)) && information[BIRTHDAY].equals(v.get(BIRTHDAY)));
         }
         return false;
-    }
-
-    public boolean hasBirthday(String[] customer) {
-        return (customer.length > BIRTHDAY);
     }
 }

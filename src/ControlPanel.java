@@ -23,7 +23,7 @@ public class ControlPanel extends Panel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        Table table = ClubMembership.getTable();
+        MyTable table = ClubMembership.getTable();
         TableModel model = table.getModel();
 
         if(e.getSource().equals(addNewLine)){

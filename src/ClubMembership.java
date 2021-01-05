@@ -14,13 +14,13 @@ public class ClubMembership extends JFrame {
     private final static int HEIGHT = 600;
 
     private static Customer customer;
-    private static Table table;
+    private static MyTable table;
 
     public static Customer getCustomer() {
         return customer;
     }
 
-    public static Table getTable() {
+    public static MyTable getTable() {
         return table;
     }
 
@@ -32,7 +32,7 @@ public class ClubMembership extends JFrame {
         customer = new Customer();
         customer.readCsv(FILEPATH);
 
-        table = new Table(customer.getCustomer());
+        table = new MyTable(customer.getCustomer());
 
         add(new JScrollPane(table), BorderLayout.NORTH);
         add(new ControlPanel(), BorderLayout.SOUTH);
@@ -48,15 +48,14 @@ public class ClubMembership extends JFrame {
             FileWriter csv = new FileWriter(FILEPATH);
 
             for (int i = 0; i < model.getRowCount(); i++) {
-                if(!(model.getValueAt(i,1) == null || model.getValueAt(i,2) == null)) {
-                    for (int j = 0; j < model.getColumnCount(); j++) {
-                        if (model.getValueAt(i, j) == null)
-                            csv.write(",");
-                        else
-                            csv.write(model.getValueAt(i, j).toString() + ",");
-                    }
-                    csv.write("\n");
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    if (model.getValueAt(i, j) == null)
+                        csv.write(",");
+                    else
+                        csv.write(model.getValueAt(i, j).toString() + ",");
                 }
+                if(i != model.getRowCount()-1)
+                    csv.write("\n");
             }
             csv.close();
 
