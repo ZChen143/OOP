@@ -20,8 +20,8 @@ public class Customer {
         return customer;
     }
 
-    public void addCustomer(String[] s) {
-        Vector<String> v = new Vector<>(Arrays.asList(s));
+    public void addCustomer(String[] customer) {
+        Vector<String> v = new Vector<>(Arrays.asList(customer));
         getCustomer().add(v);
     }
 
