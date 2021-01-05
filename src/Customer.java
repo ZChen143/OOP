@@ -1,5 +1,8 @@
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Vector;
 
 
@@ -9,6 +12,7 @@ public class Customer {
     private final static int FIRSTNAME = 1;
     private final static int LASTNAME = 2;
     private final static int BIRTHDAY = 3;
+    private final static int AGE = 7;
 
     private final Vector<Vector<String>> customer;
 
@@ -27,11 +31,24 @@ public class Customer {
 
     public void createNumNo(String[] customer) {
         String keyInformation;
-        if(customer.length == BIRTHDAY)
-            keyInformation = customer[FIRSTNAME] + customer[LASTNAME];
-        else
+        if(hasBirthday(customer))
             keyInformation = customer[FIRSTNAME] + customer[LASTNAME] + customer[BIRTHDAY];
+        else
+            keyInformation = customer[FIRSTNAME] + customer[LASTNAME];
         customer[MEMBERSHIPNUMBER] = Integer.toString(keyInformation.hashCode() & Integer.MAX_VALUE);
+    }
+
+    public void calculateAge(String[] customer) {
+        String pattern = "dd/MM/yy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        if(hasBirthday(customer) && !customer[BIRTHDAY].equals("")) {
+            try {
+                Date date = simpleDateFormat.parse(customer[BIRTHDAY]);
+                System.out.println(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void readCsv(String filePath) {
@@ -58,9 +75,10 @@ public class Customer {
             lineSplit = line.split(csvSplitBy);
 
             //Create Membership Numbers by hashcode if it's null.
-            if(lineSplit[MEMBERSHIPNUMBER].equals("") || lineSplit[MEMBERSHIPNUMBER].equals("\uFEFF")){ // 65279 ??!!
+            if(lineSplit[MEMBERSHIPNUMBER].equals("") || lineSplit[MEMBERSHIPNUMBER].equals("\uFEFF"))// 65279 ??!!
                 createNumNo(lineSplit);
-            }
+
+            calculateAge(lineSplit);
 
             if(!isEqual(lineSplit)) {
                 for (String s : lineSplit) {
@@ -79,5 +97,9 @@ public class Customer {
             return (lineSplit[1].equals(v.get(1)) && lineSplit[2].equals(v.get(2)) && lineSplit[3].equals(v.get(3)));
         }
         return false;
+    }
+
+    public boolean hasBirthday(String[] customer) {
+        return (customer.length > BIRTHDAY);
     }
 }

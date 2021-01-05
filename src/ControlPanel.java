@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -8,10 +7,9 @@ import java.awt.event.ActionListener;
 
 public class ControlPanel extends Panel implements ActionListener {
 
-    private final JButton addNewLine = new JButton("Add new line");
+    private final JButton addNewLine = new JButton("Add");
     private final JButton delete = new JButton("Delete");
     private final JButton search = new JButton("Search");
-    private final JButton update = new JButton("Update");
 
     public ControlPanel() {
         add(addNewLine);
@@ -20,8 +18,6 @@ public class ControlPanel extends Panel implements ActionListener {
         delete.addActionListener(this);
         add(search);
         search.addActionListener(this);
-        add(update);
-        update.addActionListener(this);
     }
 
     @Override
@@ -31,26 +27,21 @@ public class ControlPanel extends Panel implements ActionListener {
         TableModel model = table.getModel();
 
         if(e.getSource().equals(addNewLine)){
-            AddingDialog addingDialog = new AddingDialog();
-            //customer.addCustomer(new String[]{null,null,null,null,null,null,null,null,null});
+            new AddingDialog();
             table.updateUI();
-            Rectangle rectangle = table.getCellRect(table.getRowCount()-1,0,true);
-            table.scrollRectToVisible(rectangle);
         }
-        else if(e.getSource().equals(delete)){
-            int length = table.getSelectedRows().length;
-            for(int i = 0; i < length ; i++)
-                ((DefaultTableModel)model).removeRow(table.getSelectedRow());
+        else if(e.getSource().equals(delete)) {
+            if(table.getSelectedRow() != -1) {
+                int selectOption = JOptionPane.showConfirmDialog(null, "Do you want to delete the chosen customer?", "Warning", JOptionPane.YES_NO_OPTION);
+                if (selectOption == JOptionPane.YES_OPTION) {
+                    int length = table.getSelectedRows().length;
+                    for (int i = 0; i < length; i++)
+                        ((DefaultTableModel) model).removeRow(table.getSelectedRow());
+                }
+            }
         }
         else if(e.getSource().equals(search)){
-        }
-        else if(e.getSource().equals(update)){
-            if(table.getCellEditor() != null) {
-                table.getCellEditor().stopCellEditing();
-                int r = model.getRowCount();
-                int c = model.getColumnCount();
-                ((AbstractTableModel) model).fireTableCellUpdated(r, c);
-            }
+            SearchingDialog searchingDialog = new SearchingDialog();
         }
     }
 }

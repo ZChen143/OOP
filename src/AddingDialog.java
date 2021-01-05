@@ -18,15 +18,15 @@ public class AddingDialog extends MyDialog implements ActionListener{
                         null,
                         getTextFirstname().getText(), getTextLastname().getText(), getTextBirthday().getText(),
                         Objects.requireNonNull(getGenderComboBox().getSelectedItem()).toString(), getTextAddress().getText(), getTextTelephone().getText(),
-                        null,null
+                        null,getTextStartDate().getText(),null
                 };
-                //Membership number is null
                 ClubMembership.getCustomer().createNumNo(customer);
                 ClubMembership.getCustomer().addCustomer(customer);
+                JOptionPane.showMessageDialog(getContentPane(), "Success!");
                 dispose();
             }
             else {
-                System.err.println("error");
+                JOptionPane.showMessageDialog(getContentPane(), "Check the information!");
             }
         }
         else if(e.getSource().equals(getButton2())){
@@ -35,8 +35,8 @@ public class AddingDialog extends MyDialog implements ActionListener{
     }
 
     public boolean isCorrect() {
-        //only for +44 or 0 and first digit is 7.
-        String telephoneFormat = "(\\+44|0)7[0-9]{9}";
+        //Could start with +44 or 0 and first digit of telephone must be 7.
+        String telephoneFormat = "(\\+44|0)?7[0-9]{9}";
         //dd/MM/yy, due to only keep the last two digits of the year. ALL the years in multiples of 4 seem as leap years.
         String dateFormat = "(((0[1-9]|[12][0-9]|3[01])\\/((0[13578]|1[02]))|((0[1-9]|[12][0-9]|30)\\/(0[469]|11))|(0[1-9]|[1][0-9]|2[0-8])\\/(02))\\/[0-9]{2})|(29\\/02\\/([02468][048]|[13579][26]))";
 
