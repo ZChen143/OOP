@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class Customer {
 
-    private final static int MEMBERSHIPNUMBER = 0;
+    private final static int MEMBERSHIP_NUMBER = 0;
     private final static int FIRSTNAME = 1;
     private final static int LASTNAME = 2;
     private final static int BIRTHDAY = 3;
@@ -36,20 +36,26 @@ public class Customer {
             keyInformation = information[FIRSTNAME] + information[LASTNAME] + information[BIRTHDAY];
         else
             keyInformation = information[FIRSTNAME] + information[LASTNAME];
-        information[MEMBERSHIPNUMBER] = Integer.toString(keyInformation.hashCode() & Integer.MAX_VALUE);
+        information[MEMBERSHIP_NUMBER] = Integer.toString(keyInformation.hashCode() & Integer.MAX_VALUE);
     }
 
     public void calculateAge(String[] information) {
         String pattern = "dd/MM/yy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        if(information[BIRTHDAY] != null && information[BIRTHDAY].equals("")) {
-            try {
-                Date date = simpleDateFormat.parse(information[BIRTHDAY]);
-                System.out.println(information[FIRSTNAME]);
-                System.out.println(date);
-            } catch (ParseException e) {
+        if (information[BIRTHDAY] != null)
+            if (!information[BIRTHDAY].equals("")) {
+                try {
+                    String[] birthday = simpleDateFormat.parse(information[BIRTHDAY]).toString().split(" ");
+                    String[] currentDate = new Date().toString().split(" ");
+                    information[AGE] = String.valueOf(Integer.parseInt(currentDate[5]) - Integer.parseInt(birthday[5]));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+    }
+
+    public void calculateDueDate(String[] information) {
+
     }
 
     public void readCsv(String filePath) {
@@ -58,7 +64,6 @@ public class Customer {
         String[] lineSplit;
         Vector<String> v = new Vector<>();
         Vector<String> tmp = new Vector<>();
-        int n = 0;
 
         BufferedReader br = null;
         try {
@@ -80,11 +85,9 @@ public class Customer {
                 information[i] = lineSplit[i];
 
             //Create Membership Numbers by hashcode if it's null.
-            if(information[MEMBERSHIPNUMBER].equals("") || information[MEMBERSHIPNUMBER].equals("\uFEFF"))// 65279 ??!!
+            if(information[MEMBERSHIP_NUMBER].equals("") || information[MEMBERSHIP_NUMBER].equals("\uFEFF"))// \65279 in JS,python, \uFEFF in C/C++,JAVA,C#.
                 createNumNo(information);
 
-            n += 1;
-            System.out.println(n);
             calculateAge(information);
 
             if(!isEqual(information)) {
@@ -98,6 +101,11 @@ public class Customer {
         }
     }
 
+    // This function can only judge the customer who has name and birthday.
+    // The customers with the same name and don't have birthday assume as different people.
+    // One example is Hathaway Anne.
+    // Thus, the problem is how to give them different membership number.
+    // Due to I created the membership number by String.hashcode().
     public boolean isEqual(String[] information) {
         if(customer.size() != 0) {
             Vector<String> v = customer.lastElement();

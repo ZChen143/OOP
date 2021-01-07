@@ -1,11 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 public class MyTextField extends JTextField implements FocusListener {
 
-    private final String hint;
+    private String hint;
     private boolean showingHint;
 
     public MyTextField(String hint) {
@@ -39,4 +40,18 @@ public class MyTextField extends JTextField implements FocusListener {
     public String getText() {
         return showingHint ? "" : super.getText();
     }
+
+    @Override
+    public void setEditable(boolean b) {
+        super.setEditable(b);
+    }
+
+    @Override
+    public void setText(String t) {
+        super.setText(t);
+        hint = t;
+        setForeground(Color.BLACK);
+        removeFocusListener(this);
+    }
+
 }

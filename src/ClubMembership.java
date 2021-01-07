@@ -8,8 +8,8 @@ public class ClubMembership extends JFrame {
 
     private final static String FILEPATH = "src/customerlist.csv";
 
-    private final static int XOFFSET = 300;
-    private final static int YOFFSET = 100;
+    private final static int X_OFFSET = 300;
+    private final static int Y_OFFSET = 100;
     private final static int WIDTH = 1024;
     private final static int HEIGHT = 600;
 
@@ -37,7 +37,7 @@ public class ClubMembership extends JFrame {
         add(new JScrollPane(table), BorderLayout.NORTH);
         add(new ControlPanel(), BorderLayout.SOUTH);
 
-        setBounds(XOFFSET,YOFFSET,WIDTH,HEIGHT);
+        setBounds(X_OFFSET,Y_OFFSET,WIDTH,HEIGHT);
     }
 
     @Override
@@ -70,10 +70,10 @@ public class ClubMembership extends JFrame {
     }
 
     public static int getXOffset() {
-        return XOFFSET;
+        return X_OFFSET;
     }
 
     public static int getYOffset() {
-        return YOFFSET;
+        return Y_OFFSET;
     }
 }
