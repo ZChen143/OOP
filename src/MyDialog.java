@@ -5,8 +5,8 @@ public abstract class MyDialog extends JDialog implements ActionListener {
 
     private final static int X_OFFSET = ClubMembership.getXOffset() + 200;
     private final static int Y_OFFSET = ClubMembership.getYOffset() + 100;
-    private final static int WIDTH  = 600;
-    private final static int HEIGHT = 320;
+    public final static int WIDTH  = 600;
+    public final static int HEIGHT = 320;
 
     private final static JLabel FIRSTNAME = new JLabel("First name   ");;
     private final static JLabel LASTNAME = new JLabel("Last name");
@@ -44,15 +44,15 @@ public abstract class MyDialog extends JDialog implements ActionListener {
         button2.addActionListener(this);
 
         GenderComboBox.addItem("");
-        GenderComboBox.addItem("Male");
-        GenderComboBox.addItem("Female");
-        GenderComboBox.addItem("Other");
+        GenderComboBox.addItem("male");
+        GenderComboBox.addItem("female");
+        GenderComboBox.addItem("others");
         GenderComboBox.addItem("prefer not to disclose");
 
         membershipComBox.addItem("");
-        membershipComBox.addItem("Individual");
-        membershipComBox.addItem("Family");
-        membershipComBox.addItem("Visitor");
+        membershipComBox.addItem("individual");
+        membershipComBox.addItem("family");
+        membershipComBox.addItem("visitor");
 
         setModal(true);
         setTitle("Information");
@@ -184,4 +184,35 @@ public abstract class MyDialog extends JDialog implements ActionListener {
         textStartDate.setText(startDate);
     }
 
+    public static JLabel getMEMBERSHIP() {
+        return MEMBERSHIP;
+    }
+
+    public static JLabel getDueDate() {
+        return DUE_DATE;
+    }
+
+    public static JLabel getAGE() {
+        return AGE;
+    }
+
+    public static JLabel getFEE() {
+        return FEE;
+    }
+
+    public JComboBox getMembershipComBox() {
+        return membershipComBox;
+    }
+
+    public JLabel getLabelDueDate() {
+        return labelDueDate;
+    }
+
+    public JLabel getLabelAge() {
+        return labelAge;
+    }
+
+    public JLabel getLabelFee() {
+        return labelFee;
+    }
 }

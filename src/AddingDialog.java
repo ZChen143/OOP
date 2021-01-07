@@ -8,6 +8,12 @@ public class AddingDialog extends MyDialog implements ActionListener{
 
     public AddingDialog() {
         super(new JButton("save"), new JButton("cancel"));
+        getDueDate().setVisible(false);
+        getAGE().setVisible(false);
+        getFEE().setVisible(false);
+        getLabelDueDate().setVisible(false);
+        getLabelAge().setVisible(false);
+        getLabelFee().setVisible(false);
         setVisible(true);
     }
 
@@ -50,6 +56,7 @@ public class AddingDialog extends MyDialog implements ActionListener{
                 && Pattern.matches(dateFormat,getTextBirthday().getText())
                 && !getTextAddress().getText().equals("")
                 && Pattern.matches(telephoneFormat,getTextTelephone().getText())
-                && Pattern.matches(dateFormat,getTextStartDate().getText());
+                && Pattern.matches(dateFormat,getTextStartDate().getText())
+                && !Objects.requireNonNull(getMembershipComBox().getSelectedItem()).toString().equals("");
     }
 }

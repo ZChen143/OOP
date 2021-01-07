@@ -6,6 +6,12 @@ public class SearchingDialog extends MyDialog implements ActionListener {
 
     public SearchingDialog() {
         super(new JButton("search"), new JButton("cancel"));
+        getDueDate().setVisible(false);
+        getAGE().setVisible(false);
+        getFEE().setVisible(false);
+        getLabelDueDate().setVisible(false);
+        getLabelAge().setVisible(false);
+        getLabelFee().setVisible(false);
         setVisible(true);
     }
 
