@@ -48,11 +48,15 @@ public class ClubMembership extends JFrame {
             FileWriter csv = new FileWriter(FILEPATH);
 
             for (int i = 0; i < model.getRowCount(); i++) {
-                for (int j = 0; j < model.getColumnCount(); j++) {
+                if (model.getValueAt(i,0) == null)
+                    continue;
+                else
+                   csv.write(model.getValueAt(i, 0).toString());
+                for (int j = 1; j < model.getColumnCount(); j++) {
                     if (model.getValueAt(i, j) == null)
                         csv.write(",");
                     else
-                        csv.write(model.getValueAt(i, j).toString() + ",");
+                        csv.write("," + model.getValueAt(i, j).toString());
                 }
                 if(i != model.getRowCount()-1)
                     csv.write("\n");

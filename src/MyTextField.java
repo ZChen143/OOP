@@ -50,6 +50,7 @@ public class MyTextField extends JTextField implements FocusListener {
     public void setText(String t) {
         super.setText(t);
         hint = t;
+        showingHint = false;
         setForeground(Color.BLACK);
         removeFocusListener(this);
     }

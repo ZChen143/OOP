@@ -18,7 +18,7 @@ public abstract class MyDialog extends JDialog implements ActionListener {
     private final static JLabel MEMBERSHIP = new JLabel("Membership");
     private final static JLabel DUE_DATE = new JLabel("Due date");
     private final static JLabel AGE = new JLabel("Age");
-    private final static JLabel FEE = new JLabel("Fee/month");
+    private final static JLabel FEE = new JLabel("Fee");
     private final static JLabel MEMBERSHIP_NUMBER = new JLabel("Membership NO.");
 
 

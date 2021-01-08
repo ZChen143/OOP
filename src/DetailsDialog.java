@@ -52,7 +52,7 @@ public class DetailsDialog extends MyDialog{
             dispose();
     }
 
-    private int gender(String s){
+    public static int gender(String s){
         if(s == null)
             return 0;
         else if(s.equals("male"))
@@ -66,7 +66,7 @@ public class DetailsDialog extends MyDialog{
         return -1;
     }
 
-    private int membership(String s){
+    public static int membership(String s){
         if(s == null)
             return 0;
         else if(s.equals("individual/year"))
@@ -80,6 +80,5 @@ public class DetailsDialog extends MyDialog{
         else if(s.equals("visitor"))
             return 5;
         return -1;
-
     }
 }

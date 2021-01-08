@@ -10,6 +10,7 @@ public class ControlPanel extends Panel implements ActionListener {
     private final JButton addNewLine = new JButton("Add");
     private final JButton delete = new JButton("Delete");
     private final JButton search = new JButton("Search");
+    private final JButton edit = new JButton("Edit");
 
     public ControlPanel() {
         add(addNewLine);
@@ -18,6 +19,8 @@ public class ControlPanel extends Panel implements ActionListener {
         delete.addActionListener(this);
         add(search);
         search.addActionListener(this);
+        add(edit);
+        edit.addActionListener(this);
     }
 
     @Override
@@ -41,7 +44,10 @@ public class ControlPanel extends Panel implements ActionListener {
             }
         }
         else if(e.getSource().equals(search)){
-            SearchingDialog searchingDialog = new SearchingDialog();
+            new SearchingDialog();
+        }
+        else if(e.getSource().equals(edit)){
+            new EditingDialog();
         }
     }
 }
