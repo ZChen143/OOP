@@ -69,26 +69,34 @@ public class Customer {
             e.printStackTrace();
         }
         Calendar cal = Calendar.getInstance();
+        assert date != null;
         cal.setTime(date);
 
-        if(information[MEMBERSHIP].equals("individual/year")){
-            cal.add(Calendar.YEAR, 1);
-            fee = 36 * 12;
-        } else if (information[MEMBERSHIP].equals("individual/month")) {
-            cal.add(Calendar.MONTH, 1);
-            fee = 36;
-        } else if (information[MEMBERSHIP].equals("family/year")) {
-            cal.add(Calendar.YEAR,1);
-            fee = 60 * 12;
-        } else if (information[MEMBERSHIP].equals("family/month")) {
-            cal.add(Calendar.MONTH,1);
-            fee = 60;
-        } else if (information[MEMBERSHIP].equals("visitor")) {
-            cal.add(Calendar.DATE,1);
-            fee = 3;
-        } else if (information[MEMBERSHIP].equals("")) {
-            information[DUE_DATE] = "";
-            information[FEE] = "";
+        switch (information[MEMBERSHIP]) {
+            case "individual/year" -> {
+                cal.add(Calendar.YEAR, 1);
+                fee = 36 * 12;
+            }
+            case "individual/month" -> {
+                cal.add(Calendar.MONTH, 1);
+                fee = 36;
+            }
+            case "family/year" -> {
+                cal.add(Calendar.YEAR, 1);
+                fee = 60 * 12;
+            }
+            case "family/month" -> {
+                cal.add(Calendar.MONTH, 1);
+                fee = 60;
+            }
+            case "visitor" -> {
+                cal.add(Calendar.DATE, 1);
+                fee = 3;
+            }
+            case "" -> {
+                information[DUE_DATE] = "";
+                information[FEE] = "";
+            }
         }
 
         information[DUE_DATE] = format.format(cal.getTime());
@@ -118,8 +126,7 @@ public class Customer {
 
             String[] information = new String[MyTable.HEDA_LENGTH];
             lineSplit = line.split(csvSplitBy);
-            for(int i = 0; i < lineSplit.length; i++)
-                information[i] = lineSplit[i];
+            System.arraycopy(lineSplit, 0, information, 0, lineSplit.length);
 
             //Create Membership Numbers by hashcode if it's null.
             if(information[MEMBERSHIP_NUMBER].equals("") || information[MEMBERSHIP_NUMBER].equals("\uFEFF"))// \65279 in JS,python, \uFEFF in C/C++,JAVA,C#.

@@ -8,7 +8,7 @@ public abstract class MyDialog extends JDialog implements ActionListener {
     public final static int WIDTH  = 600;
     public final static int HEIGHT = 320;
 
-    private final static JLabel FIRSTNAME = new JLabel("First name   ");;
+    private final static JLabel FIRSTNAME = new JLabel("First name   ");
     private final static JLabel LASTNAME = new JLabel("Last name");
     private final static JLabel DATE_OF_BIRTH = new JLabel("Birthday");
     private final static JLabel GENDER = new JLabel("Gender");
@@ -139,56 +139,34 @@ public abstract class MyDialog extends JDialog implements ActionListener {
         return textFirstname;
     }
 
-    public void setTextFirstname(String firstname) {
-        textFirstname.setText(firstname);
-    }
 
     public MyTextField getTextLastname() {
         return textLastname;
     }
 
-    public void setTextLastname(String lastname) {
-        textLastname.setText(lastname);
-    }
 
     public MyTextField getTextBirthday() {
         return textBirthday;
     }
 
-    public void setTextBirthday(String birthday) {
-        textBirthday.setText(birthday);
-    }
 
     public JComboBox getGenderComboBox() {
         return GenderComboBox;
     }
 
-    public void setGender(String gender) {
-        GenderComboBox.setSelectedItem(gender);
-    }
 
     public MyTextField getTextAddress() {
         return textAddress;
     }
 
-    public void setTextAddress(String address) {
-        textAddress.setText(address);
-    }
 
     public MyTextField getTextTelephone() {
         return textTelephone;
     }
 
-    public void setTextTelephone(String telephone) {
-        textTelephone.setText(telephone);
-    }
 
     public MyTextField getTextStartDate() {
         return textStartDate;
-    }
-
-    public void setTextStartDate(String startDate) {
-        textStartDate.setText(startDate);
     }
 
     public static JLabel getMEMBERSHIP() {
