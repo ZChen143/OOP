@@ -17,8 +17,10 @@ public abstract class MyDialog extends JDialog implements ActionListener {
     private final static JLabel START_DATE = new JLabel("Start date");
     private final static JLabel MEMBERSHIP = new JLabel("Membership");
     private final static JLabel DUE_DATE = new JLabel("Due date");
-    private final static JLabel AGE = new JLabel("Age:");
-    private final static JLabel FEE = new JLabel("Fee/month:");
+    private final static JLabel AGE = new JLabel("Age");
+    private final static JLabel FEE = new JLabel("Fee/month");
+    private final static JLabel MEMBERSHIP_NUMBER = new JLabel("Membership NO.");
+
 
     private final MyTextField textFirstname = new MyTextField("First name");
     private final MyTextField textLastname = new MyTextField("Last name");
@@ -31,6 +33,7 @@ public abstract class MyDialog extends JDialog implements ActionListener {
     private final JLabel labelDueDate = new JLabel();
     private final JLabel labelAge = new JLabel();
     private final JLabel labelFee = new JLabel();
+    private final MyTextField textMemNO = new MyTextField("Membership NO.");
 
     private final JButton button1;
     private final JButton button2;
@@ -50,8 +53,10 @@ public abstract class MyDialog extends JDialog implements ActionListener {
         GenderComboBox.addItem("prefer not to disclose");
 
         membershipComBox.addItem("");
-        membershipComBox.addItem("individual");
-        membershipComBox.addItem("family");
+        membershipComBox.addItem("individual/year");
+        membershipComBox.addItem("individual/month");
+        membershipComBox.addItem("family/year");
+        membershipComBox.addItem("family/month");
         membershipComBox.addItem("visitor");
 
         setModal(true);
@@ -85,13 +90,15 @@ public abstract class MyDialog extends JDialog implements ActionListener {
                         .addComponent(TELEPHONE)
                         .addComponent(MEMBERSHIP)
                         .addComponent(FEE)
+                        .addComponent(MEMBERSHIP_NUMBER)
                         .addComponent(button2))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addComponent(textLastname)
                         .addComponent(GenderComboBox)
                         .addComponent(textTelephone)
                         .addComponent(membershipComBox)
-                        .addComponent(labelFee)).addGap(20)
+                        .addComponent(labelFee)
+                        .addComponent(textMemNO)).addGap(20)
         );
 
 
@@ -107,13 +114,13 @@ public abstract class MyDialog extends JDialog implements ActionListener {
                 .addGap(20)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(DUE_DATE).addComponent(labelDueDate).addComponent(FEE).addComponent(labelFee))
                 .addGap(20)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(AGE).addComponent(labelAge))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(AGE).addComponent(labelAge).addComponent(MEMBERSHIP_NUMBER).addComponent(textMemNO))
                 .addGap(20)
                 .addGroup(layout.createParallelGroup().addComponent(button1).addComponent(button2))
                 .addGap(20)
         );
 
-        layout.linkSize(textFirstname,textLastname,GenderComboBox,textTelephone,textAddress,textBirthday,textStartDate,membershipComBox,labelDueDate,labelFee,labelAge);
+        layout.linkSize(textFirstname,textLastname,GenderComboBox,textTelephone,textAddress,textBirthday,textStartDate,membershipComBox,labelDueDate,labelFee,labelAge,textMemNO);
         layout.linkSize(button1,button2);
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -200,6 +207,10 @@ public abstract class MyDialog extends JDialog implements ActionListener {
         return FEE;
     }
 
+    public static JLabel getMembershipNumber() {
+        return MEMBERSHIP_NUMBER;
+    }
+
     public JComboBox getMembershipComBox() {
         return membershipComBox;
     }
@@ -215,4 +226,9 @@ public abstract class MyDialog extends JDialog implements ActionListener {
     public JLabel getLabelFee() {
         return labelFee;
     }
+
+    public MyTextField getTextMemNO() {
+        return textMemNO;
+    }
+
 }

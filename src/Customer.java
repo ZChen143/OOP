@@ -1,8 +1,8 @@
-import java.awt.*;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
@@ -14,6 +14,11 @@ public class Customer {
     private final static int LASTNAME = 2;
     private final static int BIRTHDAY = 3;
     private final static int AGE = 7;
+    private final static int START_DATE = 8;
+    private final static int DUE_DATE = 9;
+    private final static int MEMBERSHIP = 10;
+    private final static int FEE = 11;
+
 
     private final Vector<Vector<String>> customer;
 
@@ -55,7 +60,39 @@ public class Customer {
     }
 
     public void calculateDueDate(String[] information) {
+        int fee = 0;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+        Date date = null;
+        try {
+            date = format.parse(information[START_DATE]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
 
+        if(information[MEMBERSHIP].equals("individual/year")){
+            cal.add(Calendar.YEAR, 1);
+            fee = 36 * 12;
+        } else if (information[MEMBERSHIP].equals("individual/month")) {
+            cal.add(Calendar.MONTH, 1);
+            fee = 36;
+        } else if (information[MEMBERSHIP].equals("family/year")) {
+            cal.add(Calendar.YEAR,1);
+            fee = 60 * 12;
+        } else if (information[MEMBERSHIP].equals("family/month")) {
+            cal.add(Calendar.MONTH,1);
+            fee = 60;
+        } else if (information[MEMBERSHIP].equals("visitor")) {
+            cal.add(Calendar.DATE,1);
+            fee = 3;
+        } else if (information[MEMBERSHIP].equals("")) {
+            information[DUE_DATE] = "";
+            information[FEE] = "";
+        }
+
+        information[DUE_DATE] = format.format(cal.getTime());
+        information[FEE] = Integer.toString(fee);
     }
 
     public void readCsv(String filePath) {
@@ -79,7 +116,7 @@ public class Customer {
                 e.printStackTrace();
             }
 
-            String[] information = new String[MyTable.HEADER_LENGTH];
+            String[] information = new String[MyTable.HEDA_LENGTH];
             lineSplit = line.split(csvSplitBy);
             for(int i = 0; i < lineSplit.length; i++)
                 information[i] = lineSplit[i];
