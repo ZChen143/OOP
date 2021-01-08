@@ -43,6 +43,7 @@ public class DetailsDialog extends MyDialog{
         // It's so stupid to use these components like this and I have no idea to modify.
         // Maybe you can try to use getComponents() and don't be so stupid like me XD
         setSize(MyDialog.WIDTH,MyDialog.HEIGHT+50);
+        setTitle("Details");
         setVisible(true);
     }
 

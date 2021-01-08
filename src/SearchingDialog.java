@@ -20,9 +20,9 @@ public class SearchingDialog extends MyDialog implements ActionListener {
         getLabelFee().setVisible(false);
         getTextMemNO().setVisible(true);
         setSize(MyDialog.WIDTH,MyDialog.HEIGHT+20);
+
+        setTitle("Searching");
         setVisible(true);
-
-
     }
 
     @Override

@@ -16,6 +16,7 @@ public class AddingDialog extends MyDialog implements ActionListener{
         getLabelAge().setVisible(false);
         getLabelFee().setVisible(false);
         getTextMemNO().setVisible(false);
+        setTitle("Adding");
         setVisible(true);
     }
 

@@ -29,6 +29,7 @@ public class EditingDialog extends MyDialog implements ActionListener {
         getLabelFee().setVisible(false);
         getTextMemNO().setVisible(false);
 
+        setTitle("Editing");
         setVisible(true);
     }
 
