@@ -47,7 +47,8 @@ public class ControlPanel extends Panel implements ActionListener {
             new SearchingDialog();
         }
         else if(e.getSource().equals(edit)){
-            new EditingDialog();
+            if(table.getSelectedRow() != -1)
+                new EditingDialog();
         }
     }
 }
