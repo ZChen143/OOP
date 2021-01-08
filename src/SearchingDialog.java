@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
 
 public class SearchingDialog extends MyDialog implements ActionListener {
 
-    String[] customer;
-
     public SearchingDialog() {
         super(new JButton("search"), new JButton("cancel"));
         getDueDate().setVisible(false);
@@ -27,11 +25,12 @@ public class SearchingDialog extends MyDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String[] customer;
         if(e.getSource().equals(getButton1())){
             if(isCorrect()) {
-                customer = new String[]{ // using null or "" is very different.
+                customer = new String[]{ // using null or "" is different.
                         // This array gets some useless information which is always be null.
-                        // However, it still can work so I don't want to modify XD
+                        // However, it still can work so I don't want to modify.
                         getTextMemNO().getText(),// Membership number
                         getTextFirstname().getText(), getTextLastname().getText(), getTextBirthday().getText(),
                         Objects.requireNonNull(getGenderComboBox().getSelectedItem()).toString(), getTextAddress().getText(), getTextTelephone().getText(),
@@ -42,6 +41,7 @@ public class SearchingDialog extends MyDialog implements ActionListener {
                 };
                 find(customer);
             }
+            dispose();
         }
         else if(e.getSource().equals(getButton2())){
             dispose();
@@ -56,7 +56,7 @@ public class SearchingDialog extends MyDialog implements ActionListener {
                 && (Pattern.matches(dateFormat,getTextStartDate().getText()) || getTextStartDate().getText().equals(""));
     }
 
-    public void find(String[] customer){
+    public static void find(String[] customer){
         boolean flag = true;
         JTable t = ClubMembership.getTable();
         t.setRowSelectionAllowed(true);

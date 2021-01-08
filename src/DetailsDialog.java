@@ -19,6 +19,7 @@ public class DetailsDialog extends MyDialog{
         getMembershipComBox().setSelectedIndex(membership(customer.get(10)));
         getLabelDueDate().setText(customer.get(9));
         getLabelFee().setText(customer.get(11));
+        getTextMemNO().setText(customer.get(0));
 
         getButton2().setVisible(false);
         getDueDate().setVisible(true);
@@ -27,8 +28,8 @@ public class DetailsDialog extends MyDialog{
         getLabelDueDate().setVisible(true);
         getLabelAge().setVisible(true);
         getLabelFee().setVisible(true);
-        getMembershipNumber().setVisible(false);
-        getTextMemNO().setVisible(false);
+        getMembershipNumber().setVisible(true);
+        getTextMemNO().setVisible(true);
 
         getTextFirstname().setEditable(false);
         getTextLastname().setEditable(false);
@@ -38,10 +39,11 @@ public class DetailsDialog extends MyDialog{
         getTextTelephone().setEditable(false);
         getTextStartDate().setEditable(false);
         getMembershipComBox().setEditable(false);
+        getTextMemNO().setEditable(false);
 
 
         // It's so stupid to use these components like this and I have no idea to modify.
-        // Maybe you can try to use getComponents() and don't be so stupid like me XD
+        // Maybe you can try to use getComponents().
         setSize(MyDialog.WIDTH,MyDialog.HEIGHT+50);
         setTitle("Details");
         setVisible(true);

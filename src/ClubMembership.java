@@ -10,8 +10,8 @@ public class ClubMembership extends JFrame {
 
     private final static int X_OFFSET = 300;
     private final static int Y_OFFSET = 100;
-    private final static int WIDTH = 1024;
-    private final static int HEIGHT = 600;
+    private final static int WIDTH = 1000;
+    private final static int HEIGHT = 500;
 
     private static Customer customer;
     private static MyTable table;
@@ -71,6 +71,9 @@ public class ClubMembership extends JFrame {
 
     public static void main(String[] args) {
         ClubMembership clubMembership = new ClubMembership();
+        String s1 = "Zh";
+        String s2 = "Zel";
+        System.out.println(s2.compareTo(s1));
     }
 
     public static int getXOffset() {

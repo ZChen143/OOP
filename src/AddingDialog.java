@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class AddingDialog extends MyDialog implements ActionListener{
@@ -23,22 +23,29 @@ public class AddingDialog extends MyDialog implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(getButton1())){
-            if(isCorrect()){
+            if(isCorrect()) {
                 String[] customer = new String[]{
                         null,// Membership number
                         getTextFirstname().getText(), getTextLastname().getText(), getTextBirthday().getText(),
                         Objects.requireNonNull(getGenderComboBox().getSelectedItem()).toString(), getTextAddress().getText(), getTextTelephone().getText(),
                         null,// Age
-                        getTextStartDate().getText(),null,// Due date
+                        getTextStartDate().getText(), null,// Due date
                         Objects.requireNonNull(getMembershipComBox().getSelectedItem()).toString(),
                         null// FEE
                 };
                 ClubMembership.getCustomer().createNumNo(customer);
                 ClubMembership.getCustomer().calculateAge(customer);
                 ClubMembership.getCustomer().calculateDueDate(customer);
-                ClubMembership.getCustomer().addCustomer(customer);
-                JOptionPane.showMessageDialog(getContentPane(), "Success!");
-                dispose();
+                String membership = customer[Customer.MEMBERSHIP];
+                int age = Integer.parseInt(customer[Customer.AGE]);
+                if( ((membership.equals("family/year") || membership.equals("family/month")) && age >= 12) || age >= 18) {
+                    ClubMembership.getCustomer().addCustomer(customer);
+                    JOptionPane.showMessageDialog(getContentPane(), "Success!");
+                    SearchingDialog.find(customer);
+                    dispose();
+                }
+                else
+                    JOptionPane.showMessageDialog(getContentPane(), "Check age!");
             }
             else {
                 JOptionPane.showMessageDialog(getContentPane(), "Check the information!");

@@ -1,23 +1,20 @@
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Vector;
+import java.util.*;
 
 
 public class Customer {
 
-    private final static int MEMBERSHIP_NUMBER = 0;
-    private final static int FIRSTNAME = 1;
-    private final static int LASTNAME = 2;
-    private final static int BIRTHDAY = 3;
-    private final static int AGE = 7;
-    private final static int START_DATE = 8;
-    private final static int DUE_DATE = 9;
-    private final static int MEMBERSHIP = 10;
-    private final static int FEE = 11;
+    public final static int MEMBERSHIP_NUMBER = 0;
+    public final static int FIRSTNAME = 1;
+    public final static int LASTNAME = 2;
+    public final static int BIRTHDAY = 3;
+    public final static int AGE = 7;
+    public final static int START_DATE = 8;
+    public final static int DUE_DATE = 9;
+    public final static int MEMBERSHIP = 10;
+    public final static int FEE = 11;
 
 
     private final Vector<Vector<String>> customer;
@@ -32,16 +29,25 @@ public class Customer {
 
     public void addCustomer(String[] customer) {
         Vector<String> v = new Vector<>(Arrays.asList(customer));
+        for(int i = 0; i < ClubMembership.getCustomer().getCustomer().size(); i++){
+            if(ClubMembership.getCustomer().getCustomer().get(i).get(1).compareTo(v.get(1)) >= 0){
+                getCustomer().insertElementAt(v,i);
+                return;
+            }
+        }
         getCustomer().add(v);
     }
 
     public void createNumNo(String[] information) {
-        String keyInformation;
-        if(information[BIRTHDAY] != null )
-            keyInformation = information[FIRSTNAME] + information[LASTNAME] + information[BIRTHDAY];
+        String primaryKey;
+        Random random = new Random();
+        if (information[BIRTHDAY] != null)
+            primaryKey = information[FIRSTNAME] + information[LASTNAME] + information[BIRTHDAY] + random.nextInt(100);
         else
-            keyInformation = information[FIRSTNAME] + information[LASTNAME];
-        information[MEMBERSHIP_NUMBER] = Integer.toString(keyInformation.hashCode() & Integer.MAX_VALUE);
+            primaryKey = information[FIRSTNAME] + information[LASTNAME] + random.nextInt(100);
+        information[MEMBERSHIP_NUMBER] = Integer.toString(primaryKey.hashCode() & Integer.MAX_VALUE);
+        // make sure all the numbers are positive
+        // make sure people have the same name had different member number.
     }
 
     public void calculateAge(String[] information) {
@@ -129,12 +135,12 @@ public class Customer {
             System.arraycopy(lineSplit, 0, information, 0, lineSplit.length);
 
             //Create Membership Numbers by hashcode if it's null.
-            if(information[MEMBERSHIP_NUMBER].equals("") || information[MEMBERSHIP_NUMBER].equals("\uFEFF"))// \65279 in JS,python, \uFEFF in C/C++,JAVA,C#.
+            if (information[MEMBERSHIP_NUMBER].equals("") || information[MEMBERSHIP_NUMBER].equals("\uFEFF"))// \65279 in JS,python, \uFEFF in C/C++,JAVA,C#.
                 createNumNo(information);
 
             calculateAge(information);
 
-            if(!isEqual(information)) {
+            if (!isEqual(information)) {
                 for (String s : information) {
                     tmp.add(s);
                     v = (Vector<String>) tmp.clone();
@@ -151,9 +157,9 @@ public class Customer {
     // Thus, the problem is how to give them different membership number.
     // Due to I created the membership number by String.hashcode().
     public boolean isEqual(String[] information) {
-        if(customer.size() != 0) {
+        if (customer.size() != 0) {
             Vector<String> v = customer.lastElement();
-            if (information[BIRTHDAY] != null && customer.lastElement().get(BIRTHDAY) !=null)
+            if (information[BIRTHDAY] != null && customer.lastElement().get(BIRTHDAY) != null)
                 return (information[FIRSTNAME].equals(v.get(FIRSTNAME)) && information[LASTNAME].equals(v.get(LASTNAME)) && information[BIRTHDAY].equals(v.get(BIRTHDAY)));
         }
         return false;

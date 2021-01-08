@@ -1,9 +1,12 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 public class MyTable extends JTable{
@@ -29,7 +32,6 @@ public class MyTable extends JTable{
         fee.setMinWidth(0);
         fee.setPreferredWidth(0);
 
-        setBounds(20,30,200,300);
         setVisible(true);
 
         addMouseListener(new MouseAdapter() {

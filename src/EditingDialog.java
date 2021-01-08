@@ -19,17 +19,20 @@ public class EditingDialog extends MyDialog implements ActionListener {
         getTextTelephone().setText(customer.get(6));
         getTextStartDate().setText(customer.get(8));
         getMembershipComBox().setSelectedIndex(DetailsDialog.membership(customer.get(10)));
+        getTextMemNO().setText(customer.get(0));
 
         getDueDate().setVisible(false);
         getAGE().setVisible(false);
         getFEE().setVisible(false);
-        getMembershipNumber().setVisible(false);
+        getMembershipNumber().setVisible(true);
         getLabelDueDate().setVisible(false);
         getLabelAge().setVisible(false);
         getLabelFee().setVisible(false);
-        getTextMemNO().setVisible(false);
+        getTextMemNO().setVisible(true);
+        getTextMemNO().setEditable(false);
 
         setTitle("Editing");
+        setSize(MyDialog.WIDTH,MyDialog.HEIGHT+50);
         setVisible(true);
     }
 
@@ -40,7 +43,7 @@ public class EditingDialog extends MyDialog implements ActionListener {
                 int row = ClubMembership.getTable().getSelectedRow();
 
                 String[] customer = new String[]{
-                        null,// Membership number
+                        getTextMemNO().getText(),// Membership number
                         getTextFirstname().getText(), getTextLastname().getText(), getTextBirthday().getText(),
                         Objects.requireNonNull(getGenderComboBox().getSelectedItem()).toString(), getTextAddress().getText(), getTextTelephone().getText(),
                         null,// Age
@@ -48,19 +51,26 @@ public class EditingDialog extends MyDialog implements ActionListener {
                         Objects.requireNonNull(getMembershipComBox().getSelectedItem()).toString(),
                         null// FEE
                 };
-                ClubMembership.getCustomer().createNumNo(customer);
+                //ClubMembership.getCustomer().createNumNo(customer);
+                System.out.println(customer[Customer.MEMBERSHIP_NUMBER]);
                 ClubMembership.getCustomer().calculateAge(customer);
                 ClubMembership.getCustomer().calculateDueDate(customer);
-                for(int i = 0; i < MyTable.HEDA_LENGTH; i++) {
-                    ClubMembership.getCustomer().getCustomer().get(row).set(i,customer[i]);
+                String membership = customer[Customer.MEMBERSHIP];
+                int age = Integer.parseInt(customer[Customer.AGE]);
+                if( ((membership.equals("family/year") || membership.equals("family/month")) && age >= 12) || age >= 18) {
+                    for (int i = 0; i < MyTable.HEDA_LENGTH; i++) {
+                        ClubMembership.getCustomer().getCustomer().get(row).set(i, customer[i]);
+                    }
+                    JOptionPane.showMessageDialog(getContentPane(), "Success!");
+                    dispose();
+                    ClubMembership.getTable().updateUI();
                 }
-                JOptionPane.showMessageDialog(getContentPane(), "Success!");
-                dispose();
-                ClubMembership.getTable().updateUI();
+                else {
+                    JOptionPane.showMessageDialog(getContentPane(), "Check age!");
+                }
             }
-            else {
+            else
                 JOptionPane.showMessageDialog(getContentPane(), "Check the information!");
-            }
         }
         else if(e.getSource().equals(getButton2())){
             dispose();
@@ -76,7 +86,7 @@ public class EditingDialog extends MyDialog implements ActionListener {
 
         return !getTextFirstname().getText().equals("")
                 && !getTextLastname().getText().equals("")
-                && !Objects.requireNonNull(getGenderComboBox().getSelectedItem()).toString().equals("")
+                && getGenderComboBox().getSelectedItem() != null
                 && Pattern.matches(dateFormat,getTextBirthday().getText())
                 && !getTextAddress().getText().equals("")
                 && Pattern.matches(telephoneFormat,getTextTelephone().getText())
