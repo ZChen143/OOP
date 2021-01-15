@@ -23,7 +23,30 @@ public class AddingDialog extends MyDialog implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(getButton1())){
-            if(isCorrect()) {
+            if(getMembershipComBox().getSelectedItem().toString().equals("visitor")){
+                String[] customer = new String[]{
+                        "",// Membership number
+                        getTextFirstname().getText(), getTextLastname().getText(), getTextBirthday().getText(),
+                        Objects.requireNonNull(getGenderComboBox().getSelectedItem()).toString(), getTextAddress().getText(), getTextTelephone().getText(),
+                        "",// Age
+                        getTextStartDate().getText(), "",// Due date
+                        Objects.requireNonNull(getMembershipComBox().getSelectedItem()).toString(),
+                        ""// FEE
+                };
+                if(!customer[1].equals("") && !customer[2].equals("")) {
+                    ClubMembership.getCustomer().createNumNo(customer);
+                    if(!customer[3].equals(""))
+                        ClubMembership.getCustomer().calculateAge(customer);
+                    if(!customer[8].equals(""))
+                        ClubMembership.getCustomer().calculateDueDate(customer);
+                    ClubMembership.getCustomer().addCustomer(customer);
+
+                    JOptionPane.showMessageDialog(getContentPane(), "Success!");
+                    SearchingDialog.find(customer);
+                    dispose();
+                }
+            }
+            else if(isCorrect()) {
                 String[] customer = new String[]{
                         null,// Membership number
                         getTextFirstname().getText(), getTextLastname().getText(), getTextBirthday().getText(),

@@ -59,6 +59,7 @@ public class SearchingDialog extends MyDialog implements ActionListener {
     public static void find(String[] customer){
         boolean flag = true;
         JTable t = ClubMembership.getTable();
+        t.clearSelection();
         t.setRowSelectionAllowed(true);
         t.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); // select multiple rows
         for(int i = 0; i < MyTable.HEDA_LENGTH; i++){
@@ -67,7 +68,7 @@ public class SearchingDialog extends MyDialog implements ActionListener {
             for(int j = 0; j < ClubMembership.getCustomer().getCustomer().size(); j++){
                 String s = ClubMembership.getCustomer().getCustomer().get(j).get(i);
                 if(customer[i].equals(s)){
-                    for(int k = i; k < MyTable.HEDA_LENGTH; k++){
+                    for(int k = i; k < customer.length; k++){
                         s = ClubMembership.getCustomer().getCustomer().get(j).get(k);
                         if(!customer[k].equals(s) && !customer[k].equals("")){
                             return;
